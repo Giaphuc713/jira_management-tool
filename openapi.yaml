@@ -349,15 +349,14 @@ components:
         userId: { type: string, pattern: "^[a-f0-9]{24}$" }
         role: { type: string, enum: [Admin, Member, Viewer] }
     ProjectDetail: # GET /projects/:key populate userId thành object
-      allOf:
-        - $ref: "#/components/schemas/ProjectBase"
-    ProjectBase:
       type: object
       required: [_id, key, name, members, nextIssueNumber]
       properties:
-        _id: { $ref: "#/components/schemas/ObjectId" }
-        key: { type: string }
-        name: { type: string }
+        _id: { type: string, pattern: "^[a-f0-9]{24}$" }
+        __v: { type: integer, minimum: 0 }
+        key: { type: string, pattern: "^[A-Z]{2,10}$" }
+        name: { type: string, minLength: 3, maxLength: 100 }
+        description: { type: string, maxLength: 1000 }
         members:
           type: array
           items:
@@ -368,11 +367,13 @@ components:
                 type: object
                 required: [_id, displayName, email]
                 properties:
-                  _id: { $ref: "#/components/schemas/ObjectId" }
+                  _id: { type: string, pattern: "^[a-f0-9]{24}$" }
                   displayName: { type: string }
                   email: { type: string }
-              role: { $ref: "#/components/schemas/Role" }
+              role: { type: string, enum: [Admin, Member, Viewer] }
         nextIssueNumber: { type: integer, minimum: 1 }
+        createdAt: { type: string, format: date-time }
+        updatedAt: { type: string, format: date-time }
     Status:
       { type: string, enum: ["To Do", "In Progress", "In Review", "Done"] }
     Priority: { type: string, enum: [Low, Medium, High] }

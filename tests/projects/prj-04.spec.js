@@ -7,7 +7,7 @@ const baseURL = process.env.BASE_URL;
 const headers = {
   "X-User-Id": TEST_USER_ID,
 };
-let key;
+let key = "WEB";
 const generateKey = () =>
   "T" +
   Array.from(crypto.getRandomValues(new Uint8Array(8)))
@@ -100,7 +100,7 @@ test.describe("PRJ-04", () => {
   });
 
   test.afterAll(async ({ request }) => {
-    // Cleanup project after each test
+    // Cleanup project after all test
     const response = await request.delete(`${baseURL}/api/projects/${key}`, {
       headers,
     });

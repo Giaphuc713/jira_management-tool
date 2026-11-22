@@ -147,7 +147,6 @@ router.delete("/issues/:issueKey", async (req, res) => {
 
   res.status(204).end();
 });
-
 router.post("/projects/:key/issues", async (req, res) => {
   const key = req.params.key.trim().toUpperCase();
   const project = await Project.findOne({ key });
@@ -163,13 +162,17 @@ router.post("/projects/:key/issues", async (req, res) => {
     throw new ApiError(403, "FORBIDDEN", "Project member is required");
   }
 
-  const projectWithAllocatedNumber = await Project.findOneAndUpdate(
+  const maxIssue = await Issue.findOne({ projectId: project._id })
+    .sort({ number: -1 })
+    .select("number")
+    .lean();
+  const number = (maxIssue?.number ?? 0) + 1;
+
+  await Project.updateOne(
     { _id: project._id },
-    { $inc: { nextIssueNumber: 1 } },
-    { new: false },
+    { $max: { nextIssueNumber: number + 1 } },
   );
 
-  const number = projectWithAllocatedNumber.nextIssueNumber;
   const body = req.body || {};
 
   const issue = await Issue.create({

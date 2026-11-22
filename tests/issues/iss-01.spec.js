@@ -7,6 +7,7 @@ const headers = {
   "X-User-Id": TEST_USER_ID,
 };
 let key;
+let createdIssueKey;
 const generateKey = () =>
   "T" +
   Array.from(crypto.getRandomValues(new Uint8Array(8)))
@@ -50,7 +51,6 @@ test.describe("POST /projects/:key/issues", () => {
     const body = await response.json();
     await validateSchema({ request }, body, schemaDoc.components.schemas.Issue);
   });
-
   test("[Negative] - ISS-01 Create issue with type [Drama]", async ({
     request,
   }) => {
@@ -68,7 +68,46 @@ test.describe("POST /projects/:key/issues", () => {
     await validateSchema({ request }, body, schemaDoc.components.schemas.Error);
   });
 
+  test("Create issue with a specific key and reject duplicate keys", async ({
+    request,
+  }) => {
+    createdIssueKey = `${key}-99`;
+    const payload = {
+      title: "Issue with a specified key",
+      type: "Task",
+    };
+    const response = await request.post(
+      `${baseURL}/api/projects/${key}/${createdIssueKey}`,
+      { headers, data: payload },
+    );
+
+    expect(response.status()).toBe(201);
+    const body = await response.json();
+    expect(body.key).toBe(createdIssueKey);
+    await validateSchema({ request }, body, schemaDoc.components.schemas.Issue);
+
+    const duplicateResponse = await request.post(
+      `${baseURL}/api/projects/${key}/${createdIssueKey}`,
+      { headers, data: payload },
+    );
+    expect(duplicateResponse.status()).toBe(409);
+    const duplicateBody = await duplicateResponse.json();
+    expect(duplicateBody.error.code).toBe("ISSUE_KEY_EXISTS");
+
+    const deleteResponse = await request.delete(
+      `${baseURL}/api/issues/${createdIssueKey}`,
+      { headers },
+    );
+    expect(deleteResponse.status()).toBe(204);
+    createdIssueKey = undefined;
+  });
+
   test.afterAll(async ({ request }) => {
+    if (createdIssueKey) {
+      await request.delete(`${baseURL}/api/issues/${createdIssueKey}`, {
+        headers,
+      });
+    }
     // Cleanup project after all test
     const response = await request.delete(`${baseURL}/api/projects/${key}`, {
       headers,

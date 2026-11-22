@@ -1,5 +1,5 @@
 const TEST_USER_ID = "6afd1c2c7c593acdcf1a8416";
-const MEMBER_ID = "6afd1c2c7c593acdcf1a8418";
+const MEMBER_ID = "6afd1c2c7c593acdcf1a8417";
 const ISSUE_KEY = "WEB-1";
 const PROJECT_KEY = "WEB";
 const COMMENT_ID = "6afd1c2c7c593acdcf1a8456";
