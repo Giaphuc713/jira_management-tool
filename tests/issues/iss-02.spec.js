@@ -16,4 +16,11 @@ test.describe("GET /issues/:issueKey", () => {
     const body = await response.json();
     await validateSchema({ request }, body, schemaDoc.components.schemas.Issue);
   });
+
+  test("Negative - Return 401 when X-User-Id header is missing", async ({
+    request,
+  }) => {
+    const response = await request.get(`${baseURL}/api/issues/${ISSUE_KEY}`);
+    expect(response.status()).toBe(401);
+  });
 });

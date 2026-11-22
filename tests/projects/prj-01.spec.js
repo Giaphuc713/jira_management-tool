@@ -85,4 +85,17 @@ test.describe("POST /projects", () => {
       error: { code: "CONFLICT" },
     });
   });
+
+  // Missing header 401
+  test("returns 401 when X-User-Id header is missing", async ({ request }) => {
+    const payload = {
+      key: "string",
+      name: "string",
+      description: "string",
+    };
+    const response = await request.post(`${baseURL}/api/projects`, {
+      data: payload,
+    });
+    expect(response.status()).toBe(401);
+  });
 });

@@ -87,4 +87,14 @@ test.describe("PRJ-03 - GET /projects/:key", () => {
         await validateSchema({ request }, body, schemaDoc.components.schemas.Error);
 
     });
+
+    // 4. Negative path: không truyền header trả về 401
+    test("Negative path - return 401 when X-User-Id header is missing", async ({
+        request,
+    }) => {
+        const response = await request.get(
+            `${baseURL}/api/projects/${projectKey}`,
+        );
+        expect(response.status()).toBe(401);
+    });
 });

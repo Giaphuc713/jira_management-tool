@@ -44,6 +44,16 @@ test.describe("DELETE /comments/:id", () => {
     }
   });
 
+  test("Return 401 when request delete comment without X-User-Id header", async ({
+    request,
+  }) => {
+    const response = await request.delete(
+      `${baseURL}/api/comments/${commentId}`,
+    );
+
+    expect(response.status()).toBe(401);
+  });
+
   test("Return 403 when request delete comment isn't author", async ({
     request,
   }) => {

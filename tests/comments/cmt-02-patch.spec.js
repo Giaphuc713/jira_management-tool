@@ -41,6 +41,16 @@ test.describe("PATCH /comments/:id", () => {
       expect(response.status()).toBe(204);
     }
   });
+  test("Return 401 when request update comment without X-User-Id header", async ({
+    request,
+  }) => {
+    const response = await request.patch(`${baseURL}/api/comments/${commentId}`, {
+      data: { body: "unauthorized update" },
+    });
+
+    expect(response.status()).toBe(401);
+  });
+
   test("Return 403 when request update comment isn't author", async ({
     request,
   }) => {

@@ -99,6 +99,31 @@ test.describe("PRJ-04", () => {
     expect(removeMember.status()).toBe(204);
   });
 
+  test("Return 401 when adding member without X-User-Id header", async ({
+    request,
+  }) => {
+    const payload = {
+      userId: MEMBER_ID,
+      role: "Member",
+    };
+    const response = await request.post(
+      `${baseURL}/api/projects/${key}/members`,
+      {
+        data: payload,
+      },
+    );
+    expect(response.status()).toBe(401);
+  });
+
+  test("Return 401 when removing member without X-User-Id header", async ({
+    request,
+  }) => {
+    const response = await request.delete(
+      `${baseURL}/api/projects/${key}/members/${MEMBER_ID}`,
+    );
+    expect(response.status()).toBe(401);
+  });
+
   test.afterAll(async ({ request }) => {
     // Cleanup project after all test
     const response = await request.delete(`${baseURL}/api/projects/${key}`, {

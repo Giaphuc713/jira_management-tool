@@ -108,4 +108,13 @@ test.describe("ISS-06 GET /projects/:key/issues", () => {
 
     await validateSchema({ request }, body, issueListSchema);
   });
+
+  test("Negative - Return 401 when X-User-Id header is missing", async ({
+    request,
+  }) => {
+    const response = await request.get(
+      `${baseURL}/api/projects/${PROJECT_KEY}/issues`,
+    );
+    expect(response.status()).toBe(401);
+  });
 });

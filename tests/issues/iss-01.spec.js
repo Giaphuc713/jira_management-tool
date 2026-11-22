@@ -68,6 +68,18 @@ test.describe("POST /projects/:key/issues", () => {
     await validateSchema({ request }, body, schemaDoc.components.schemas.Error);
   });
 
+  test("[Negative] - Return 401 when X-User-Id header is missing", async ({
+    request,
+  }) => {
+    const payload = { title: "Create issue without header", type: "Story" };
+    const response = await request.post(
+      `${baseURL}/api/projects/${key}/issues`,
+      {
+        data: payload,
+      },
+    );
+    expect(response.status()).toBe(401);
+  });
 
   test.afterAll(async ({ request }) => {
     if (createdIssueKey) {

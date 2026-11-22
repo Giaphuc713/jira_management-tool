@@ -25,10 +25,7 @@ test.describe("GET /projects", () => {
   test("PRJ-02 - Return 401 status when authentication is missing", async ({
     request,
   }) => {
-    const headers = { "X-User-Id": "" };
-    const response = await request.get(`${baseURL}/api/projects`, {
-      headers,
-    });
+    const response = await request.get(`${baseURL}/api/projects`);
     expect(response.status()).toBe(401);
   });
 });

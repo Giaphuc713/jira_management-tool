@@ -41,4 +41,25 @@ test.describe("POST /issues/:issueKey/comments", () => {
       items: schemaDoc.components.schemas.Comment,
     });
   });
+
+  test("Negative - Return 401 when creating comment without X-User-Id header", async ({
+    request,
+  }) => {
+    const response = await request.post(
+      `${baseURL}/api/issues/${ISSUE_KEY}/comments`,
+      {
+        data: { body: "unauthorized comment" },
+      },
+    );
+    expect(response.status()).toBe(401);
+  });
+
+  test("Negative - Return 401 when listing comments without X-User-Id header", async ({
+    request,
+  }) => {
+    const response = await request.get(
+      `${baseURL}/api/issues/${ISSUE_KEY}/comments`,
+    );
+    expect(response.status()).toBe(401);
+  });
 });
