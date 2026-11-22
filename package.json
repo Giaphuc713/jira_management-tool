@@ -12,7 +12,7 @@
     "test/mockoon": "npx playwright test tests/mocks/mockoon.spec.js",
     "test/wiremock": "npx playwright test tests/mocks/wiremock.spec.js",
     "test/jsonserver": "npx playwright test tests/mocks/json-server.spec.js",
-    "test": "npx playwright test tests/comments/ tests/issues/ tests/projects/"
+    "test": "npx playwright test tests/comments/ tests/issues/ tests/projects/ tests/users/"
   },
   "_moduleAliases": {
     "@": "src"
