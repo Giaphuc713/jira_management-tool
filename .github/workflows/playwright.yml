@@ -20,8 +20,6 @@ jobs:
         run: npx playwright install --with-deps
       - name: Start services
         run: docker compose up -d --build
-      - name: Wait for app
-        run: npx wait-on http://localhost:3000 --timeout 90000
       - name: Run Playwright tests
         run: npm run test
         env:

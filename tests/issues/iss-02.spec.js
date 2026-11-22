@@ -23,4 +23,13 @@ test.describe("GET /issues/:issueKey", () => {
     const response = await request.get(`${baseURL}/api/issues/${ISSUE_KEY}`);
     expect(response.status()).toBe(401);
   });
+
+  test("Negative - Return 404 when issueKey is IOS", async ({ request }) => {
+    const response = await request.get(`${baseURL}/api/issues/IOS`, {
+      headers,
+    });
+    expect(response.status()).toBe(404);
+    const body = await response.json();
+    await validateSchema({ request }, body, schemaDoc.components.schemas.Error);
+  });
 });
