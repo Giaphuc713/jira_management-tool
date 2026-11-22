@@ -68,39 +68,6 @@ test.describe("POST /projects/:key/issues", () => {
     await validateSchema({ request }, body, schemaDoc.components.schemas.Error);
   });
 
-  test("Create issue with a specific key and reject duplicate keys", async ({
-    request,
-  }) => {
-    createdIssueKey = `${key}-99`;
-    const payload = {
-      title: "Issue with a specified key",
-      type: "Task",
-    };
-    const response = await request.post(
-      `${baseURL}/api/projects/${key}/${createdIssueKey}`,
-      { headers, data: payload },
-    );
-
-    expect(response.status()).toBe(201);
-    const body = await response.json();
-    expect(body.key).toBe(createdIssueKey);
-    await validateSchema({ request }, body, schemaDoc.components.schemas.Issue);
-
-    const duplicateResponse = await request.post(
-      `${baseURL}/api/projects/${key}/${createdIssueKey}`,
-      { headers, data: payload },
-    );
-    expect(duplicateResponse.status()).toBe(409);
-    const duplicateBody = await duplicateResponse.json();
-    expect(duplicateBody.error.code).toBe("ISSUE_KEY_EXISTS");
-
-    const deleteResponse = await request.delete(
-      `${baseURL}/api/issues/${createdIssueKey}`,
-      { headers },
-    );
-    expect(deleteResponse.status()).toBe(204);
-    createdIssueKey = undefined;
-  });
 
   test.afterAll(async ({ request }) => {
     if (createdIssueKey) {

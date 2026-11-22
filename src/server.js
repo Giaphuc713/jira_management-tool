@@ -16,7 +16,7 @@ app.get("/api/health", (req, res) => res.json({ status: "ok" }));
 app.use("/api", auth, projectRoutes);
 app.use("/api", auth, issueRoutes);
 app.use("/api", auth, commentRoutes);
-app.use("/api", userRoutes);
+app.use("/api", auth, userRoutes);
 app.use(errorHandler);
 
 mongoose.connect(process.env.MONGO_URL).then(() => {
