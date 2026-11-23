@@ -7,7 +7,7 @@ ENV NODE_ENV=production
 COPY package.json package-lock.json ./
 RUN npm ci --include=dev
 
-COPY --chown=node:node src ./src
+COPY --chown=node:node . .
 
 USER node
 

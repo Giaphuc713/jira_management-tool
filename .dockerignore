@@ -1,3 +1,4 @@
-.env
+playwright-report
 node_modules
-
+.git
+.env.*
