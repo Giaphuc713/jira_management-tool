@@ -5,6 +5,12 @@ const User = require("@/models/user");
 const Project = require("@/models/project");
 const Issue = require("@/models/issue");
 const Comment = require("@/models/comment");
+const {
+  TEST_USER_ID,
+  MEMBER_ID,
+  USER_UNACTIVE_ID,
+  MEMBER_ID_2,
+} = require("@/utilities/constant");
 
 async function main() {
   await mongoose.connect(process.env.MONGO_URL);
@@ -16,10 +22,30 @@ async function main() {
 
   // 2. Users
   const [alice, bob, carol, dan] = await User.insertMany([
-    { email: "alice@example.com", displayName: "Alice", isActive: true },
-    { email: "bob@example.com", displayName: "Bob", isActive: true },
-    { email: "carol@example.com", displayName: "Carol", isActive: true },
-    { email: "dan@example.com", displayName: "Dan", isActive: false },
+    {
+      _id: TEST_USER_ID,
+      email: "alice@example.com",
+      displayName: "Alice",
+      isActive: true,
+    },
+    {
+      _id: MEMBER_ID,
+      email: "bob@example.com",
+      displayName: "Bob",
+      isActive: true,
+    },
+    {
+      _id: MEMBER_ID_2,
+      email: "carol@example.com",
+      displayName: "Carol",
+      isActive: true,
+    },
+    {
+      _id: USER_UNACTIVE_ID,
+      email: "dan@example.com",
+      displayName: "Dan",
+      isActive: false,
+    },
   ]);
 
   // 3. Projects

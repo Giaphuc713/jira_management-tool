@@ -22,6 +22,8 @@ jobs:
         run: docker compose up -d --build
       - name: Wait for app
         run: npx --yes wait-on -t 60000 http://localhost:3000/api/health
+      - name: Seed test database
+        run: docker compose exec -T app npm run seed
       - name: Run Playwright tests
         run: npm run test
         env:
