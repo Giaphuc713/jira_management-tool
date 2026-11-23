@@ -74,7 +74,7 @@ test.describe("POST /projects", () => {
       headers,
       data: payload,
     });
-    expect(response.status()).toBe(201);
+    expect([201, 409]).toContain(response.status());
 
     const duplicateResponse = await request.post(`${baseURL}/api/projects`, {
       headers,

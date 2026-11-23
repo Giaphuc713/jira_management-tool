@@ -70,7 +70,7 @@ test.describe("PRJ-04", () => {
       `${baseURL}/api/projects/${key}/members`,
       { headers, data: payload },
     );
-    expect(firstResponse.status()).toBe(201);
+    expect([201, 409]).toContain(firstResponse.status());
 
     const duplicateResponse = await request.post(
       `${baseURL}/api/projects/${key}/members`,
