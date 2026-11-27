@@ -14,7 +14,7 @@ const STATUSES = ["To Do", "In Progress", "In Review", "Done"];
 const PRIORITIES = ["Low", "Medium", "High"];
 const LABELS = ["frontend", "backend", "login", "cart", "search", "docs", "ci"];
 
-async function main() {
+async function runSeed() {
   await mongoose.connect(process.env.MONGO_URL);
 
   const web = await Project.findOne({ key: "WEB" });
@@ -83,8 +83,4 @@ async function main() {
   await mongoose.disconnect();
 }
 
-main().catch(async (err) => {
-  console.error(err);
-  await mongoose.disconnect().catch(() => { });
-  process.exit(1);
-});
+module.exports = { runSeed };

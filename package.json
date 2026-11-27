@@ -8,6 +8,8 @@
     "dev": "node --watch src/server.js",
     "seed": "node src/script/seed.js",
     "seed:large": "node src/script/seed-large.js",
+    "test:regression": "cross-env TARGET_ENV=regression node src/script/seed.js && cross-env TARGET_ENV=regression npm run test",
+    "test:smoke": "cross-env TARGET_ENV=smoke node src/script/seed.js && cross-env TARGET_ENV=smoke npm run test",
     "mock": "json-server --watch src/mock/db.json  --port 4000 --read-only ",
     "test/mockoon": "npx playwright test tests/mocks/mockoon.spec.js",
     "test/wiremock": "npx playwright test tests/mocks/wiremock.spec.js",

@@ -1,0 +1,26 @@
+{
+  "name": "TC-USR-01-01 Admin Alice is accepted",
+  "request": {
+    "method": "GET",
+    "urlPath": "/api/users",
+    "headers": {
+      "X-User-Id": { "equalTo": "6afd1c2c7c593acdcf1a8416" }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": { "Content-Type": "application/json" },
+    "jsonBody": [
+      {
+        "key": "WEB",
+        "name": "Web Platform",
+        "members": [{ "userId": "6afd1c2c7c593acdcf1a8416", "role": "Admin" }]
+      },
+      {
+        "key": "MOB",
+        "name": "Mobile App",
+        "members": [{ "userId": "6afd1c2c7c593acdcf1a8416", "role": "Admin" }]
+      }
+    ]
+  }
+}

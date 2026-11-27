@@ -1,0 +1,23 @@
+{
+  "name": "TC-PRJ-01-05 GET projects after create with key at maximum length",
+  "priority": 1,
+  "scenarioName": "TC-PRJ-01-05 Create project with key at maximum length",
+  "requiredScenarioState": "Project Created",
+  "request": {
+    "method": "GET",
+    "urlPath": "/api/projects",
+    "headers": { "X-User-Id": { "equalTo": "6afd1c2c7c593acdcf1a8416" } }
+  },
+  "response": {
+    "status": 200,
+    "headers": { "Content-Type": "application/json" },
+    "jsonBody": [
+      {
+        "key": "ABCDEFGHIJ",
+        "name": "Max Key",
+        "description": "",
+        "members": [{ "userId": "6afd1c2c7c593acdcf1a8416", "role": "Admin" }]
+      }
+    ]
+  }
+}

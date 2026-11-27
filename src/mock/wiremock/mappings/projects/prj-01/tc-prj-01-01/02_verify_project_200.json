@@ -1,0 +1,35 @@
+{
+  "name": "TC-PRJ-01-01 Create project",
+  "priority": 1,
+  "scenarioName": "TC-PRJ-01-01 Create project",
+  "requiredScenarioState": "Project Created",
+  "request": {
+    "method": "GET",
+    "urlPath": "/api/projects",
+    "headers": {
+      "X-User-Id": { "equalTo": "6afd1c2c7c593acdcf1a8416" }
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": { "Content-Type": "application/json" },
+    "jsonBody": [
+      {
+        "key": "WEB",
+        "name": "Web Platform",
+        "members": [{ "userId": "6afd1c2c7c593acdcf1a8416", "role": "Admin" }]
+      },
+      {
+        "key": "MOB",
+        "name": "Mobile App",
+        "members": [{ "userId": "6afd1c2c7c593acdcf1a8416", "role": "Admin" }]
+      },
+      {
+        "key": "QAT",
+        "name": "Project",
+        "description": "Project",
+        "members": [{ "userId": "6afd1c2c7c593acdcf1a8416", "role": "Admin" }]
+      }
+    ]
+  }
+}

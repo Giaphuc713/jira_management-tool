@@ -1,0 +1,23 @@
+{
+  "name": "TC-PRJ-01-03 GET projects after create",
+  "priority": 1,
+  "scenarioName": "TC-PRJ-01-03 Create project without description",
+  "requiredScenarioState": "Project Created",
+  "request": {
+    "method": "GET",
+    "urlPath": "/api/projects",
+    "headers": { "X-User-Id": { "equalTo": "6afd1c2c7c593acdcf1a8416" } }
+  },
+  "response": {
+    "status": 200,
+    "headers": { "Content-Type": "application/json" },
+    "jsonBody": [
+      {
+        "key": "NODESC",
+        "name": "Project",
+        "description": "",
+        "members": [{ "userId": "6afd1c2c7c593acdcf1a8416", "role": "Admin" }]
+      }
+    ]
+  }
+}

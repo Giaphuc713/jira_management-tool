@@ -1,0 +1,38 @@
+{
+  "name": "TC-PRJ-01-01 Create project",
+  "priority": 1,
+  "scenarioName": "TC-PRJ-01-01 Create project",
+  "requiredScenarioState": "Started",
+  "newScenarioState": "Project Created",
+  "request": {
+    "method": "POST",
+    "urlPath": "/api/projects",
+    "headers": {
+      "X-User-Id": { "equalTo": "6afd1c2c7c593acdcf1a8416" }
+    },
+    "bodyPatterns": [
+      {
+        "equalToJson": {
+          "key": "QAT",
+          "name": "Project",
+          "description": "Project"
+        },
+        "ignoreExtraElements": true
+      }
+    ]
+  },
+  "response": {
+    "status": 201,
+    "headers": { "Content-Type": "application/json" },
+    "jsonBody": {
+      "id": "65f0000000000000000000a1",
+      "key": "QAT",
+      "name": "Project",
+      "description": "Project",
+      "members": [{ "userId": "6afd1c2c7c593acdcf1a8416", "role": "Admin" }],
+      "nextIssueNumber": 1,
+      "createdAt": "2026-11-26T14:00:00.000Z",
+      "updatedAt": "2026-11-26T14:00:00.000Z"
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "TC-USR-01-03 Unknown X-User-Id is rejected",
+  "request": {
+    "method": "GET",
+    "urlPath": "/api/users",
+    "headers": {
+      "X-User-Id": {
+        "matches": "^(?!(6afd1c2c7c593acdcf1a8416|6afd1c2c7c593acdcf1a8416|6afd1c2c7c593acdcf1a8418|6afd1c2c7c593acdcf1a8419)$).+$"
+      }
+    }
+  },
+  "response": {
+    "status": 401,
+    "headers": { "Content-Type": "application/json" },
+    "jsonBody": {
+      "error": {
+        "code": "UNAUTHORIZED",
+        "message": "Unknown user"
+      }
+    }
+  }
+}

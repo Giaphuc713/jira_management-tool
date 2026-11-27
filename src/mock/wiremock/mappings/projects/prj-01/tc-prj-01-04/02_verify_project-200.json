@@ -1,0 +1,23 @@
+{
+  "name": "TC-PRJ01-04 GET projects after create with key at minimum length",
+  "priority": 1,
+  "scenarioName": "TC-PRJ01-04 Create project with key at minimum length",
+  "requiredScenarioState": "Project Created",
+  "request": {
+    "method": "GET",
+    "urlPath": "/api/projects",
+    "headers": { "X-User-Id": { "equalTo": "6afd1c2c7c593acdcf1a8416" } }
+  },
+  "response": {
+    "status": 200,
+    "headers": { "Content-Type": "application/json" },
+    "jsonBody": [
+      {
+        "key": "QA",
+        "name": "Min Key",
+        "description": "",
+        "members": [{ "userId": "6afd1c2c7c593acdcf1a8416", "role": "Admin" }]
+      }
+    ]
+  }
+}

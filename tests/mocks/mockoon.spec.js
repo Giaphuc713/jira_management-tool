@@ -185,7 +185,7 @@ test.describe("Mockoon POST /projects/:key/issues", () => {
     expect(body.title).toBe(title);
   });
 
-  test("E1: project key='Nope' → 404 PROJECT_NOT_FOUND", async ({
+  test("E1: project key='Nope' -> 404 PROJECT_NOT_FOUND", async ({
     request,
   }) => {
     const response = await request.post(`${baseURL}/projects/Nope/issues`, {

@@ -1,0 +1,28 @@
+{
+  "name": "TC-PRJ-01-08 POST reject key that contains digits",
+  "priority": 1,
+  "request": {
+    "method": "POST",
+    "urlPath": "/api/projects",
+    "headers": { "X-User-Id": { "equalTo": "6afd1c2c7c593acdcf1a8416" } },
+    "bodyPatterns": [
+      {
+        "equalToJson": { "key": "QA2", "name": "Digit Key" },
+        "ignoreExtraElements": true
+      }
+    ]
+  },
+  "response": {
+    "status": 400,
+    "headers": { "Content-Type": "application/json" },
+    "jsonBody": {
+      "error": {
+        "code": "VALIDATION_ERROR",
+        "message": "Invalid project data",
+        "details": [
+          { "field": "key", "message": "key must contain letters A-Z only" }
+        ]
+      }
+    }
+  }
+}

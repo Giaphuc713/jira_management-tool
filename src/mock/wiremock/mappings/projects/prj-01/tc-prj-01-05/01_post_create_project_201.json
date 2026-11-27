@@ -1,0 +1,30 @@
+{
+  "name": "TC-PRJ-01-05 POST create project with key at maximum length",
+  "priority": 1,
+  "scenarioName": "TC-PRJ-01-05 Create project with key at maximum length",
+  "requiredScenarioState": "Started",
+  "newScenarioState": "Project Created",
+  "request": {
+    "method": "POST",
+    "urlPath": "/api/projects",
+    "headers": { "X-User-Id": { "equalTo": "6afd1c2c7c593acdcf1a8416" } },
+    "bodyPatterns": [
+      {
+        "equalToJson": { "key": "ABCDEFGHIJ", "name": "Max Key" },
+        "ignoreExtraElements": true
+      }
+    ]
+  },
+  "response": {
+    "status": 201,
+    "headers": { "Content-Type": "application/json" },
+    "jsonBody": {
+      "id": "65f0000000000000000000a4",
+      "key": "ABCDEFGHIJ",
+      "name": "Max Key",
+      "description": "",
+      "members": [{ "userId": "6afd1c2c7c593acdcf1a8416", "role": "Admin" }],
+      "nextIssueNumber": 1
+    }
+  }
+}
